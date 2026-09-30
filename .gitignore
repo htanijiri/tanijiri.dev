@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+
+# 計画書（チャットで相談した内容。個人情報・社内情報を含む可能性があるため Git 管理しない）
+brief/*
+!brief/README.md
+
+# 作業ジャーナル（指示原文・作業記録。社内情報や人名が混ざる可能性があるため Git 管理しない）
+journal/
+
+# Claude Code の個人設定
+.claude/settings.local.json
+
+# 秘密情報（共有用は *.example を使う）
+.env
+.env.*
+!.env.example
+.dev.vars
+config.js
+config.toml
+
+# ビルド・デプロイ用の出力
+dist/
+.wrangler/
+
+# 依存パッケージ・実行環境
+node_modules/
+.venv/
+__pycache__/
+*.py[oc]
+
+# ログ
+logs/
+*.log

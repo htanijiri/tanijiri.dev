@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(date *)"
+    ]
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PROJECT_DIR}\"/.claude/hooks/journal-prompt.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PROJECT_DIR}\"/.claude/hooks/journal-stop.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

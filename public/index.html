@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>谷尻 浩 | tanijiri.dev</title>
+  <meta name="description" content="エンジニア / 個人開発。自分が使うものを、自分でつくるのが好きです。">
+  <meta property="og:title" content="谷尻 浩 | tanijiri.dev">
+  <meta property="og:description" content="エンジニア / 個人開発。自分が使うものを、自分でつくるのが好きです。">
+  <meta property="og:url" content="https://tanijiri.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <link rel="canonical" href="https://tanijiri.dev/">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main>
+    <!-- 名刺の表面と同じ文言。変えるときは名刺と揃える -->
+    <header class="profile">
+      <img class="profile-icon" src="/icon.webp" alt="谷尻 浩" width="112" height="112">
+      <p class="profile-title">エンジニア / 個人開発</p>
+      <h1 class="profile-name">谷尻 浩</h1>
+      <p class="profile-name-en">HIROSHI TANIJIRI</p>
+      <!-- 狭い画面で読点のところで折り返すよう、句ごとに span で包む -->
+      <p class="profile-lead"><span>自分が使うものを、</span><span>自分でつくるのが好きです。</span></p>
+    </header>
+
+    <!-- 名刺の裏面と同じ連絡先 -->
+    <section class="links" aria-labelledby="links-heading">
+      <h2 id="links-heading" class="visually-hidden">リンク</h2>
+      <dl>
+        <div>
+          <dt>GitHub</dt>
+          <dd><a href="https://github.com/htanijiri">github.com/htanijiri</a></dd>
+        </div>
+        <div>
+          <dt>Zenn</dt>
+          <dd><a href="https://zenn.dev/htanijiri">zenn.dev/htanijiri</a></dd>
+        </div>
+        <div>
+          <dt>Mail</dt>
+          <dd><a href="mailto:hiroshi@tanijiri.dev">hiroshi@tanijiri.dev</a></dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- 作っているもの：GitHub で公開しているもの。1項目＝li ひとつ。上から表示順 -->
+    <section class="works" aria-labelledby="works-heading">
+      <h2 id="works-heading">作っているもの</h2>
+      <ul>
+        <li class="work">
+          <h3>local-llm-transcriber</h3>
+          <p>会議の録音を、手元の Mac mini だけで文字起こしして議事録の下書きにするツール。有料の文字起こしサービスは使える時間に上限があるので、時間を気にせず使えるように、すべてローカルで動かしています。</p>
+          <p class="work-links">
+            <a href="https://github.com/htanijiri/local-llm-transcriber">GitHub</a>
+            <a href="https://zenn.dev/htanijiri/articles/01-local-llm-transcribe-gotchas">関連記事：ローカルLLMで文字起こし・要約をやってハマった話</a>
+          </p>
+        </li>
+        <li class="work">
+          <h3>おでかけスカウト</h3>
+          <p>AI エージェントのハッカソンに出した作品。週末のおでかけ先探しを任せる AI エージェントで、「今週末のおでかけ調べて」のひと言で、子ども向けのイベント探しから、天気を見たおすすめ選び、行き方・ランチ・雨の日の代わりまで調べて、プランにまとめます。Claude Code のスキルで作っています。</p>
+          <p class="work-links">
+            <a href="https://github.com/htanijiri/odekake-scout">GitHub</a>
+            <a href="https://youtu.be/lktilaa-mEE">デモ動画（3分）</a>
+          </p>
+        </li>
+        <li class="work">
+          <h3>2036 Personal AI Network</h3>
+          <p>ハッカソンで作ったプロトタイプ。一人ひとりの AI 秘書どうしが空き時間や趣味をすり合わせて、本人が探していなかった体験を LINE で提案してくれる、10年後の想像図です。</p>
+          <p class="work-links">
+            <a href="https://github.com/htanijiri/personal-ai-network">GitHub</a>
+          </p>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>tanijiri.dev</p>
+  </footer>
+</body>
+</html>

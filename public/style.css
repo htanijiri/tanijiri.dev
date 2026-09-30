@@ -1,0 +1,162 @@
+/* 配色は名刺と同じ4色だけ。色を足すときは仕様書で合意する（CLAUDE.md） */
+:root {
+  --color-text: #23282D;
+  --color-sub: #6E7781;
+  --color-accent: #1F7A6C;
+  --color-bg: #FFFFFF;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* 英字は Helvetica / Arial、日本語は游ゴシック（ない端末ではヒラギノ・Noto Sans）。Web フォントは使わない */
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: Helvetica, Arial, "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Noto Sans CJK JP", sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+main,
+footer {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+main {
+  padding-top: 3rem;
+}
+
+a {
+  color: var(--color-accent);
+  text-underline-offset: 0.2em;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+dl,
+dd {
+  margin: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* プロフィール */
+.profile-icon {
+  display: block;
+  width: 112px;
+  height: 112px;
+  margin-bottom: 1.5rem;
+}
+
+.profile-title {
+  color: var(--color-sub);
+  font-size: 0.875rem;
+}
+
+.profile-name {
+  margin-top: 0.25rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+}
+
+.profile-name-en {
+  color: var(--color-sub);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+}
+
+.profile-lead {
+  margin-top: 1.5rem;
+}
+
+.profile-lead span {
+  display: inline-block;
+}
+
+/* リンク（名刺の裏面と同じ並び） */
+.links {
+  margin-top: 2.5rem;
+}
+
+.links dl > div {
+  display: flex;
+  gap: 1rem;
+  padding: 0.25rem 0;
+}
+
+.links dt {
+  flex: 0 0 4rem;
+  color: var(--color-sub);
+  font-size: 0.875rem;
+  line-height: 1.8rem;
+}
+
+/* 作っているもの */
+.works {
+  margin-top: 3.5rem;
+}
+
+.works h2 {
+  color: var(--color-accent);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.works ul {
+  padding: 0;
+  list-style: none;
+}
+
+.work {
+  margin-top: 2rem;
+}
+
+.work h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.work p {
+  margin-top: 0.5rem;
+}
+
+.work-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  font-size: 0.875rem;
+}
+
+footer {
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+  color: var(--color-sub);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
