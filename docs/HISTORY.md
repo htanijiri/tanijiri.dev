@@ -47,4 +47,4 @@
 - 2026-09-30：メールアドレスを `hiroshi@tanijiri.dev` に決定。Cloudflare Email Routing で受信を設定し、スマホで受信を確認。送信は Gmail の SMTP で始める。
 - 2026-09-30：spec 001・002 の未決事項を決定。アイコンと favicon は、ChatGPT で作ったハリネズミのイラストにそろえる。spec 000 がユーザーにより合意済みに。
 - 2026-09-30：spec 000〜002 を実装。GitHub に公開リポジトリを作成。
-- 2026-10-01：Cloudflare Pages で `https://tanijiri.dev/` を公開。www の転送、メールアドレスの難読化を設定。
+- 2026-10-01：Cloudflare Pages で `https://tanijiri.dev/` を公開。www の転送、メールアドレスの難読化を設定。spec 000〜002 を完了。
