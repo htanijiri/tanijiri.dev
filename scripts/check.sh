@@ -36,10 +36,12 @@ if [ "$IS_PROD" = 1 ]; then
   code="$(status http://tanijiri.dev/)"
   { [ "$code" = "301" ] || [ "$code" = "308" ]; } && [ "$loc" = "https://tanijiri.dev/" ] \
     && ok "AC2 http → https（${code}）" || ng "AC2 http → https（${code} ${loc}）"
-  loc="$(curl -sI https://www.tanijiri.dev/ | tr -d '\r' | awk 'tolower($1)=="location:"{print $2}')"
-  code="$(status https://www.tanijiri.dev/)"
-  [ "$code" = "301" ] && [ "$loc" = "https://tanijiri.dev/" ] \
-    && ok "AC4 www → apex（301）" || ng "AC4 www → apex（${code} ${loc}）"
+  for w in https://www.tanijiri.dev/ http://www.tanijiri.dev/; do
+    loc="$(curl -sI --max-time 15 "$w" | tr -d '\r' | awk 'tolower($1)=="location:"{print $2}')"
+    code="$(status --max-time 15 "$w")"
+    [ "$code" = "301" ] && [ "$loc" = "https://tanijiri.dev/" ] \
+      && ok "AC4 ${w} → https://tanijiri.dev/（301）" || ng "AC4 ${w} → https://tanijiri.dev/（${code} ${loc}）"
+  done
 fi
 
 echo "== 001 プロフィールページ"
@@ -50,7 +52,14 @@ for u in https://github.com/htanijiri https://zenn.dev/htanijiri; do
   grep -qF "href=\"$u\"" <<<"$HTML" || { ng "AC2 $u へのリンクがある"; continue; }
   [ "$(status -L "$u")" = "200" ] && ok "AC2 $u が 200" || ng "AC2 $u が 200"
 done
-grep -qF 'href="mailto:hiroshi@tanijiri.dev"' <<<"$HTML" && ok "AC3 mailto がある" || ng "AC3 mailto がある"
+# 本番では Cloudflare のメールアドレスの難読化で書き換わる。data-cfemail は先頭1バイトが鍵の XOR
+if grep -qF 'href="mailto:hiroshi@tanijiri.dev"' <<<"$HTML"; then
+  ok "AC3 mailto:hiroshi@tanijiri.dev がある"
+else
+  cfemail="$(grep -oE 'data-cfemail="[0-9a-f]+"' <<<"$HTML" | head -1 | sed 's/^data-cfemail="//; s/"$//')"
+  decoded="$(python3 -c 'import sys;h=sys.argv[1];k=int(h[:2],16);print("".join(chr(int(h[i:i+2],16)^k) for i in range(2,len(h),2)))' "${cfemail:-00}")"
+  [ "$decoded" = "hiroshi@tanijiri.dev" ] && ok "AC3 難読化されたメールを戻すと hiroshi@tanijiri.dev" || ng "AC3 メールのリンクが見つからない（戻した値：${decoded}）"
+fi
 colors="$(grep -oiE '#[0-9a-f]{3,8}\b|rgba?\([^)]*\)|hsla?\([^)]*\)' <<<"$CSS" | tr 'a-f' 'A-F' | sort -u | tr '\n' ' ')"
 extra="$(tr ' ' '\n' <<<"$colors" | grep -v '^$' | grep -vxE '#23282D|#6E7781|#1F7A6C|#FFFFFF|#FFF' || true)"
 [ -z "$extra" ] && ok "AC4 CSS の色は4色だけ（${colors}）" || ng "AC4 CSS に4色以外の色がある：${extra}"

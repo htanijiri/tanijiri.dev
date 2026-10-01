@@ -27,7 +27,8 @@
 - 不採用：静的サイトジェネレーター（Astro、Eleventy など）。ページや Zenn 記事の自動取得を足すときに再検討する。
 
 ## 2. アーキテクチャ
-- `public/` の静的ファイル（HTML 1枚、CSS 1枚、画像3枚、404 ページ）を Cloudflare Pages がそのまま配信する。ビルド工程も JavaScript もない。
+- `public/` の静的ファイル（HTML 1枚、CSS 1枚、画像3枚、404 ページ）を Cloudflare Pages がそのまま配信する。ビルド工程もなく、自分で書いた JavaScript もない。
+- ただし `tanijiri.dev`（独自ドメイン）では、Cloudflare の「メールアドレスの難読化」が配信の途中で HTML を書き換え、メールのリンクを暗号化した形にして、元に戻すスクリプト（`/cdn-cgi/scripts/.../email-decode.min.js`、約 1.2KB）を足す。`*.pages.dev` では書き換わらない。
 - 初回表示の転送量は圧縮前で約 19KB（HTML・CSS・アイコン・favicon）。Lighthouse（モバイル、ローカル）は4項目とも 100（2026-09-30）。
 
 ## 3. ハマりどころと対処
@@ -57,6 +58,11 @@
 - 症状：ページは正しいのに、HTML の中身を見る項目だけがすべて NG。
 - 原因：ローカルサーバーの起動を待たずに確認を始め、空の HTML を受け取っていた。
 - 対処：`scripts/check.sh` は、トップページか CSS が空なら確認をせずに終了コード 2 で止まる。
+
+### 本番だけ mailto のチェックが NG になった（Cloudflare のメール難読化）
+- 症状：`scripts/check.sh` を `*.pages.dev` で流すと OK、`tanijiri.dev` で流すと「mailto がある」だけ NG。
+- 原因：ゾーンの設定「メールアドレスの難読化」（Scrape Shield）が、プロキシを通る独自ドメインでだけ HTML を書き換える。リンクは `/cdn-cgi/l/email-protection#…`、表示は `[email protected]` になり、スクリプトがブラウザ上で `mailto:` に戻す。
+- 対処：難読化は残すことにした（迷惑メール対策）。チェックは、`data-cfemail` の値を戻して（先頭の1バイトが鍵で、残りの各バイトと XOR）アドレスが一致するかを確かめる形に変えた。ヘッドレス Chrome の `--dump-dom` でも、実行後の DOM が `mailto:` に戻ることを確認した。
 
 ### sips で縮小した PNG に EXIF が付く
 - 症状：`sips -z` で作った PNG に `eXIf` と `cHRM` のチャンクが入る（元画像にはない）。
