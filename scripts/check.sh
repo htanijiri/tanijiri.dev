@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 仕様書 000〜002 の受け入れ条件のうち、コマンドで確認できるものをまとめて確認する。
+# 仕様書 000〜003 の受け入れ条件のうち、コマンドで確認できるものをまとめて確認する。
 # 使い方：
 #   scripts/check.sh                      # 本番（https://tanijiri.dev）
 #   scripts/check.sh http://localhost:8000 # ローカル（python3 -m http.server -d public 8000）
@@ -89,6 +89,15 @@ links="$(grep -oE 'href="https://[^"]+"' <<<"$HTML" | sed 's/^href="//; s/"$//' 
 for u in $links; do
   [ "$(status -L "$u")" = "200" ] && ok "AC2 $u が 200" || ng "AC2 $u が 200"
 done
+
+echo "== 003 X へのリンク"
+X_URL=https://x.com/hirota2
+n="$(grep -oF "href=\"$X_URL\"" <<<"$HTML" | wc -l | tr -d ' ')"
+[ "$n" = "1" ] && ok "AC1 $X_URL へのリンクが1つ" || ng "AC1 $X_URL へのリンクが1つ（${n} 個）"
+# X は存在しないユーザー名に 404 を返すので、200 ならリンク切れではない
+[ "$(status -L "$X_URL")" = "200" ] && ok "AC1 $X_URL が 200" || ng "AC1 $X_URL が 200"
+order="$(grep -o '<dt>[^<]*</dt>' <<<"$HTML" | sed 's/<[^>]*>//g' | tr '\n' ' ')"
+[ "$order" = "GitHub Zenn X Mail " ] && ok "AC2 リンク欄の並びが GitHub / Zenn / X / Mail" || ng "AC2 リンク欄の並び（${order}）"
 
 echo
 [ "$FAIL" = 0 ] && echo "すべて OK" || echo "NG があります"

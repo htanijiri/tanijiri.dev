@@ -15,7 +15,7 @@
 
 ## 主な機能
 - プロフィール：名刺と同じ氏名・肩書き・一行紹介（→ [spec 001](docs/specs/001-プロフィールページ.md)）
-- リンク：GitHub / Zenn / メール（→ spec 001）
+- リンク：GitHub / Zenn / X / メール（→ spec 001、X は [spec 003](docs/specs/003-Xへのリンク.md)）
 - 作っているものの一覧：GitHub で公開している個人開発物の紹介（→ [spec 002](docs/specs/002-作っているもの一覧.md)）
 
 ## 構成
